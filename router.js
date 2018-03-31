@@ -1,9 +1,12 @@
-const route = (handle, pathname) => {
-  console.log(`Preparing to rout to ${pathname}`);
+const route = (handle, pathname, response) => {
+  console.log(`Preparing to route to ${pathname}`);
   if (typeof handle[pathname] === 'function') {
-    handle[pathname];
+    return handle[pathname](response);
   } else {
     console.log(`No request handler found for ${pathname}`);
+    response.writeHead(404, {'Content-Type': 'text/plain'});
+    response.write('404 Not Found');
+    response.end();
   }
 }
 
