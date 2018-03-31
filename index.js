@@ -1,3 +1,11 @@
-var server = require('./server');
+const server = require('./server');
+const router = require('./router');
+const routes = require('./handler');
 
-server.start();
+const handle = {
+  '/': routes.start,
+  '/start': routes.start,
+  '/upload': routes.upload
+}
+
+server.start(router.route, handle);
